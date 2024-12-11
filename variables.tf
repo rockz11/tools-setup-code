@@ -16,3 +16,7 @@ variable "zone_id" {
 variable "domain_name" {
   default = "devops11.online"
 }
+
+variable "instance_type" {
+  default = "t3.small"
+}
