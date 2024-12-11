@@ -42,7 +42,7 @@ resource "aws_instance" "instance" {
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
   tags = {
-    Name   = var.tool_name
+    Name = var.tool_name
 
   }
 }
@@ -65,18 +65,18 @@ resource "aws_instance" "instance" {
 
 resource "aws_route53_record" "record-public" {
   zone_id = var.zone_id
-  ttl = "30"
+  ttl     = "30"
   name    = "${var.tool_name}.${var.domain_name}"
   records = [aws_instance.instance.public_ip]
   type    = "A"
 }
 resource "aws_route53_record" "record-internal" {
   zone_id = var.zone_id
-  ttl = "30"
+  ttl     = "30"
   name    = "${var.tool_name}-internal.${var.domain_name}"
   records = [aws_instance.instance.private_ip]
   type    = "A"
 
-
+}
 
 
