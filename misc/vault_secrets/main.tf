@@ -28,11 +28,11 @@ description = "Roboshop Dev Secrets"
 
 resource "vault_generic_secret" "roboshop-dev" {
   path      = "${vault_mount.roboshop-dev.path}/frontend"
-{
-data_json = <<EOT
 
+  data_json = <<EOT
+{
   "foo": "bar",
   "pizza": "cheese
-
+}
 EOT
 }
