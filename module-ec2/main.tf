@@ -1,15 +1,4 @@
-terraform {
-  required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "3.2.2"
-    }
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.54.1"
-    }
-  }
-}
+
 resource "aws_security_group" "sg" {
   name  = "${var.tool_name}-sg"
   description = "Inbound allow for ${var.tool_name}"
@@ -34,7 +23,11 @@ resource "aws_security_group" "sg" {
     cidr_blocks      = ["0.0.0.0/0"]
 
   }
+  tags = {
+    Name = "${var.tool_name}-sg"
+  }
 }
+
 
 resource "aws_instance" "instance" {
   # count deals with the list and for_each deals with the map.
@@ -70,13 +63,13 @@ resource "aws_route53_record" "record-public" {
   records = [aws_instance.instance.public_ip]
   type    = "A"
 }
+
+
 resource "aws_route53_record" "record-internal" {
   zone_id = var.zone_id
   ttl     = "30"
   name    = "${var.tool_name}-internal.${var.domain_name}"
   records = [aws_instance.instance.private_ip]
   type    = "A"
-
 }
-
 
