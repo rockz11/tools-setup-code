@@ -21,7 +21,7 @@ resource "vault_mount" "roboshop-dev" {
   description = "Roboshop Dev Secrets"
 }
 
-resource "vault_generic_secret" "roboshop-dev" {
+resource "vault_generic_secret" "frontend" {
   path = "${vault_mount.roboshop-dev.path}/frontend"
 
   data_json = <<EOT
@@ -31,6 +31,21 @@ resource "vault_generic_secret" "roboshop-dev" {
   "user_url":   "http://user-dev.devops11.online:8080/",
   "shipping_url":   "http://shipping-dev.devops11.online:8080/",
   "payment_url":   "http://payment-dev.devops11.online:8080/"
+}
+EOT
+}
+
+Environment=MONGO=true
+Environment=MONGO_URL="mongodb://mongodb-{{ env }}.devops11.online:27017/catalogue"
+
+
+resource "vault_generic_secret" "catalogue" {
+path = "${vault_mount.roboshop-dev.path}/catalogue"
+
+data_json = <<EOT
+{
+  MONGO: "true"
+  "MONGO_URL" : "mongodb://mongodb-dev.devops11.online:27017/catalogue"
 }
 EOT
 }
