@@ -4,12 +4,6 @@ terraform {
     key    = "vault-secrets/terraform.tfstate"
     region = "us-east-1"
   }
-  required_providers {
-    vault = {
-      source  = "hashicorp/vault"
-      version = "4.3.0"
-    }
-  }
 }
 
 provider "vault" {
@@ -17,6 +11,7 @@ provider "vault" {
   token = var.vault_token
   skip_tls_verify = true
 }
+
 variable "vault_token" {}
 
 resource "vault_mount" "roboshop-dev" {
@@ -30,19 +25,12 @@ resource "vault_generic_secret" "roboshop-dev" {
   path      = "${vault_mount.roboshop-dev.path}/frontend"
 
   data_json = <<EOT
-{
+}
   "catalogue_url":    "http://catalogue-dev.devops11.online:8080/",
   "cart_url":   "http://cart-dev.devops11.online:8080",
   "user_url":   "http://user-dev.devops11.online:8080",
   "shipping_url":   "http://shipping-dev.devops11.online:8080",
   "payment_url":   "http://payment-dev.devops11.online:8080",
-
 }
 EOT
 }
-#
-# resource "vault_generic_secret" "catalague" {
-#   path = "${vault_mount.roboshop-dev.path}/catalogue"
-#   data_json = <<EOT
-# {
-# }
