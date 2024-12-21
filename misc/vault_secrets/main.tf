@@ -76,7 +76,7 @@ resource "vault_generic_secret" "payment" {
 
 data_json = <<EOT
 {
-  "CART_HOST: "cart-dev.devops11.online",
+  "CART_HOST": "cart-dev.devops11.online",
   "USER_HOST" : "user-dev.devops11.online",
   "AMQP_HOST" : "rabbitmq-dev.devops11.online",
   "CART_PORT" : "8080",
