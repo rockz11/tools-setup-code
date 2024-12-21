@@ -30,8 +30,15 @@ resource "vault_generic_secret" "roboshop-dev" {
   path      = "${vault_mount.roboshop-dev.path}/frontend"
 
   data_json = <<EOT
-  {
-    "catalogue_url": "http://catalogue-dev.devops11.online:8080/",
-  }
-  EOT
+{
+  "catalogue_url":    "http://catalogue-dev.devops11.online:8080/",
+  "cart_url":   "http://cart-dev.devops11.online:8080"
+}
+EOT
+}
+
+resource "vault_generic_secret" "catalague" {
+  path = "${vault_mount.roboshop-dev.path}/catalogue"
+  data_json = <<EOT
+{
 }
