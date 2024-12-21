@@ -49,3 +49,18 @@ data_json = <<EOT
 }
 EOT
 }
+# Environment=MONGO=true
+# Environment=REDIS_URL='redis://redis-{{ env }}.devops11.onine:6379'
+# Environment=MONGO_URL="mongodb://mongodb-{{ env }}.devops11.online:27017/users"
+
+resource "vault_generic_secret" "user" {
+path = "${vault_mount.roboshop-dev.path}/user"
+
+data_json = <<EOT
+{
+  "MONGO: "true"
+  "MONGO_URL" : "mongodb://user-dev.devops11.online:27017/users",
+  "REDIS_URL" : "redis://redis-dev.devops11.onine:6379"
+}
+EOT
+}
