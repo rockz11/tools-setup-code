@@ -36,9 +36,9 @@ resource "vault_generic_secret" "roboshop-dev" {
 }
 EOT
 }
-
-resource "vault_generic_secret" "catalague" {
-  path = "${vault_mount.roboshop-dev.path}/catalogue"
-  data_json = <<EOT
-{
-}
+#
+# resource "vault_generic_secret" "catalague" {
+#   path = "${vault_mount.roboshop-dev.path}/catalogue"
+#   data_json = <<EOT
+# {
+# }
