@@ -18,7 +18,7 @@ resource "vault_mount" "roboshop-dev" {
   path = "roboshop-dev"
   type = "kv"
   options = { version= "2" }
-  description = "All infra related secrets"
+  description = "roboshop Dev secrets"
 }
 
 
@@ -138,7 +138,7 @@ resource "vault_mount" "infra-secrets" {
   path = "infra-secrets"
   type = "kv"
   options = { version= "2" }
-  description = "Roboshop Dev Secrets"
+  description = "All infra related secrets"
 }
 
 
