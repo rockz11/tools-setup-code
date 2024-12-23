@@ -43,14 +43,13 @@ resource "aws_instance" "instance" {
   }
 }
 
-#resource "null_resource" "ansible-pull" {
-
- # provisioner "remote-exec" {
-  #  connection {
-      type = "ssh"
-      user = "ec2-user"
+resource "null_resource" "ansible-pull" {
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "ec2-user"
       password = "DevOps321"
-      host = aws_instance.instance.private_ip
+      host     = aws_instance.instance.private_ip
     }
     inline = [
       "sudo labauto ansible",
@@ -58,7 +57,7 @@ resource "aws_instance" "instance" {
 
     ]
   }
-
+}
 resource "aws_route53_record" "record-public" {
   zone_id = var.zone_id
   ttl     = "30"
