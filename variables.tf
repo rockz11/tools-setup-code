@@ -39,3 +39,4 @@ variable "domain_name" {
 variable "instance_type" {
   default = "t3.small"
 }
+variable "vault_token" {}
