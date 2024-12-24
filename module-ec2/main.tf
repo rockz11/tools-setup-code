@@ -11,7 +11,6 @@ resource "aws_security_group" "sg" {
   }
   dynamic "ingress" {
     for_each = var.sg_port
-
     content {
       from_port = ingress.value
       to_port = ingress.value
