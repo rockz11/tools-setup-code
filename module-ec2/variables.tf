@@ -12,7 +12,10 @@
 # variable "ami" {}
 variable "tool_name" {}
 variable "sg_port" {
-  default = [80]
+  default = [80,
+    8200
+
+  ]
 }
 variable "volume_size" {}
 variable "instance_type" {}
