@@ -10,7 +10,7 @@ resource "aws_security_group" "sg" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
   dynamic "ingress" {
-    for_each = toset(var.sg_port)
+    for_each = var.sg_port
 
     content {
       from_port = ingress.value
