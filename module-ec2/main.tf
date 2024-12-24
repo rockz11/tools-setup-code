@@ -41,14 +41,21 @@ resource "aws_instance" "instance" {
   root_block_device {
     volume_size = var.volume_size
   }
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      instance_interruption_behavior = "stop"
+      spot_instance_type = "persistent"
+    }
+  }
 }
 
 resource "null_resource" "ansible-pull" {
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
-      user     = "ec2-user"
-      password = "DevOps321"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
       host     = aws_instance.instance.private_ip
     }
     inline = [
