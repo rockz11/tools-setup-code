@@ -48,23 +48,24 @@ resource "aws_instance" "instance" {
       spot_instance_type = "persistent"
     }
   }
+  iam_instance_profile = length(var.policy_list) > 0 ? aws_iam_instance_profile.instance_profile[0].name : null
 }
-
-resource "null_resource" "ansible-pull" {
-  provisioner "remote-exec" {
-    connection {
-      type     = "ssh"
-      user     = data.vault_generic_secret.ssh.data["username"]
-      password = data.vault_generic_secret.ssh.data["password"]
-      host     = aws_instance.instance.private_ip
-    }
-    inline = [
-      "sudo labauto ansible",
-      "ansible-pull -i localhost, -U  https://github.com/roboshop-ansible roboshop.yml -e env=${var.env} -e app_name=${var.component_name}",
-
-    ]
-  }
-}
+#
+# resource "null_resource" "ansible-pull" {
+#   provisioner "remote-exec" {
+#     connection {
+#       type     = "ssh"
+#       user     = data.vault_generic_secret.ssh.data["username"]
+#       password = data.vault_generic_secret.ssh.data["password"]
+#       host     = aws_instance.instance.private_ip
+#     }
+#     inline = [
+#       "sudo labauto ansible",
+#       "ansible-pull -i localhost, -U  https://github.com/roboshop-ansible roboshop.yml -e env=${var.env} -e app_name=${var.component_name}",
+#
+#     ]
+#   }
+# }
 resource "aws_route53_record" "record-public" {
   zone_id = var.zone_id
   ttl     = "30"
