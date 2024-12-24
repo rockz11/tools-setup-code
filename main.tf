@@ -6,5 +6,6 @@ module "tools" {
   volume_size   = each.value["volume_size"]
   domain_name   = var.domain_name
   zone_id       = var.zone_id
-  instance_type = var.instance_type
+  instance_type = each.value["instance_type"]
+  policy_list = each.value["policy_list"]
 }
